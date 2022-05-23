@@ -1,0 +1,36 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+    
+    container:
+      image: docker:latest
+      volumes:
+        - /var/run/docker.sock:/var/run/docker.sock
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Build the Docker image
+      run: docker build . --file Dockerfile --tag accurics-containertf:$(date +%s)
+      
+    - name: Save Container
+      run: docker save accurics-containertf:$(date +%s)
+      
+    - name: Scan Container
+      run: >
+        docker run 
+        -e TENABLE_ACCESS_KEY=ade3e44759141efec2028c2fd81cb68006734dfea2b9f8b52428cb38770950c3  
+        -e TENABLE_SECRET_KEY=61b3fef2075acbe141c1221e6ff80901523c04d838369cf1c5fd781b3e658e7b 
+        -e IMPORT_REPO_NAME=github-action 
+        -i tenableio-docker-consec-local.jfrog.io/cs-scanner:latest inspect-image accurics-containertf
+      
+    
