@@ -21,7 +21,7 @@ jobs:
     - uses: actions/checkout@v3
     - name: Build the Docker image
       run: >
-        docker build  --file Dockerfile -o type=tar,dest=accurics.tar . | 
+        docker build  --file Dockerfile -o type=tar . | 
         docker run 
         -e TENABLE_ACCESS_KEY=ade3e44759141efec2028c2fd81cb68006734dfea2b9f8b52428cb38770950c3  
         -e TENABLE_SECRET_KEY=61b3fef2075acbe141c1221e6ff80901523c04d838369cf1c5fd781b3e658e7b 
