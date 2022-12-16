@@ -1,10 +1,10 @@
-FROM alpine:3.15.0
+FROM alpine:3.17.0
 
-ARG SCAN_VER="1.13.2"
+ARG SCAN_VER="1.17.0"
 ARG SCAN_URL="https://github.com/accurics/terrascan/releases/download"
-ARG TER_VER="1.1.7"
+ARG TER_VER="1.3.6"
 ARG TER_URL="https://releases.hashicorp.com/terraform"
-ARG ACC_VER="1.0.34"
+ARG ACC_VER="1.0.46"
 ARG ACC_URL="https://downloads.accurics.com/cli"
 
 RUN   apk add --update git ca-certificates curl jq
